@@ -85,14 +85,12 @@ pagseguro.prototype.addItem = function(item) {
 }
 
 pagseguro.prototype.sendTransaction = function(transaction, cb) {
+    console.log(transaction);
     this.checkoutData.paymentMethod = transaction.method;
     this.checkoutData.installmentQuantity = transaction.installments || 1;
-    this.checkoutData.installmentValue = (transaction.value / transaction.installments).toFixed(2);
+    this.checkoutData.installmentValue = transaction.installmentValue || (transaction.value / transaction.installments).toFixed(2);
     this.checkoutData.senderHash = transaction.hash;
-
-    if (transaction.installments && transaction.installments > 1) {
-        this.checkoutData.noInterestInstallmentQuantity = transaction.installments;
-    }
+    this.checkoutData.noInterestInstallmentQuantity = transaction.noInterestInstallmentQuantity;
 
     if (this.checkoutData.paymentMethod == 'creditCard') {
         this.checkoutData.creditCardToken = transaction.credit_card_token;
