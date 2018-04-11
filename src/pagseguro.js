@@ -85,7 +85,6 @@ pagseguro.prototype.addItem = function(item) {
 }
 
 pagseguro.prototype.sendTransaction = function(transaction, cb) {
-    console.log(transaction);
     this.checkoutData.paymentMethod = transaction.method;
     this.checkoutData.installmentQuantity = transaction.installments || 1;
     this.checkoutData.installmentValue = transaction.installmentValue || (transaction.value / transaction.installments).toFixed(2);
